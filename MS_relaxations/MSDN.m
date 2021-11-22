@@ -1,4 +1,4 @@
-function [alphaG, X] = MSDN(A)
+function [alphaG, X, runTime] = MSDN(A)
 n = size(A,2);
 Q = A + eye(n);
 X = sdpvar(n,n);
@@ -12,11 +12,10 @@ Constraints = [X >= 0, X(:) >= 0, trace(J*X) == 1];
 Objective = trace(Q*X);
 
 ops = sdpsettings('solver', 'mosek','verbose',0);
+tic
 sol = optimize(Constraints, Objective, ops);
+runTime = toc;
 
 X = value(X);
 alphaG = 1 / value(Objective);
-
-
-
 end
