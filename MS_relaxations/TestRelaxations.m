@@ -5,12 +5,12 @@ A = CreateTestInstances();
 numInstances = size(A,1);
 
 % run all the  instances and record value and runtime
-results = zeros(numInstances,3);
+results = zeros(numInstances,4);
 
 for i = 1:numInstances
    G = A{i};
-   MSDN_value = MSDN(G);
+   [MSDN_value,~,runTime] = MSDN(G);
    MSNN_value = MSNN(G);
    MSPSD_value = MSPSD(G);
-   results(i,:) = [MSDN_value, MSNN_value, MSPSD_value];
+   results(i,:) = [MSDN_value, MSNN_value, MSPSD_value, runTime];
 end
